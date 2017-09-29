@@ -1,9 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-use Illuminate\Database\Capsule\Manager as Capsule;
-use Illuminate\Events\Dispatcher as Dispatcher;
-
 /*
 | -------------------------------------------------------------------
 | DATABASE CONNECTIVITY SETTINGS
@@ -97,48 +94,3 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-
-$capsule = new Capsule;
-
-$capsule->addConnection(array(
-    'driver'    => 'mysql',
-    'host'      => $db['default']['hostname'],
-    'database'  => $db['default']['database'],
-    'username'  => $db['default']['username'],
-    'password'  => $db['default']['password'],
-    'charset'   => 'utf8',
-    'collation' => 'utf8_unicode_ci',
-    'prefix'    => $db['default']['dbprefix'],
-));
-
-$capsule->setAsGlobal();
-$capsule->bootEloquent();
-
-$events = new Dispatcher;
-
-$events->listen('illuminate.query', function($query, $bindings, $time, $name)
-{
-    // Format binding data for sql insertion
-    foreach ($bindings as $i => $binding)
-    {   
-        if ($binding instanceof \DateTime)
-        {   
-            $bindings[$i] = $binding->format('\'Y-m-d H:i:s\'');
-        }
-        else if (is_string($binding))
-        {   
-            $bindings[$i] = "'$binding'";
-        }   
-    }       
-
-    // Insert bindings into query
-    $query = str_replace(array('%', '?'), array('%%', '%s'), $query);
-    $query = vsprintf($query, $bindings); 
-
-    $db =& get_instance()->db;
-
-    $db->query_times[] = $time;
-    $db->queries[] = $query;
-});
-
-$capsule->setEventDispatcher($events);

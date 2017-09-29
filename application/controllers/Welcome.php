@@ -20,18 +20,27 @@ class Welcome extends CI_Controller {
 	 */
 
 	public function __construct() {
-          parent::__construct();
-          $this->load->model('user');
+        parent::__construct();
     }
 
     public function index($page = 1) {
-		$users = User::all();
-		foreach ($users as $user) {
-		  echo '<li>' . $user->username . '</li>';
-		  echo '<li>' . $user->password . '</li>';
-		  echo '<li>' . $user->email . '</li>';
-		}
-		echo '</ul>';
-		$this->load->view('welcome_message');
+		$users = $this->User_model->getUsers(array());
+		$this->load->view('welcome_message', array(
+			"users" => $users
+		));
+    }
+
+    public function addUser() {
+    	$this->load->model('User_model');
+        $userData = array(
+        	"name" => "Sohil Parekh",
+        	"email" => "sohilparekh89@gmail.com",
+        	"password" => "123456"
+        );
+        $userRole = array(
+        	"userId" => $this->User_model->addUser($userData),
+        	"roleId" => 1
+        );
+        $this->User_model->addUserRoles($userRole);
     }
 }

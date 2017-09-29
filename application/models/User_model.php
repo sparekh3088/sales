@@ -51,6 +51,18 @@ class User_model extends CI_Model {
             return false;
     }
 
+    function getUsers($condition, $select = "*") {
+        $user = $this->db->select($select, false)
+                ->from(Table::USERS)
+                ->where($condition)
+                ->get()
+                ->result_array();
+        if ($user && count($user) > 0)
+            return $user;
+        else
+            return false;
+    }
+
     function getUserById($userId) {
         $condition = array(
             "user_id" => $userId,
