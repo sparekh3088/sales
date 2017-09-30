@@ -23,24 +23,7 @@ class Welcome extends CI_Controller {
         parent::__construct();
     }
 
-    public function index($page = 1) {
-		$users = $this->User_model->getUsers(array());
-		$this->load->view('welcome_message', array(
-			"users" => $users
-		));
-    }
-
-    public function addUser() {
-    	$this->load->model('User_model');
-        $userData = array(
-        	"name" => "Sohil Parekh",
-        	"email" => "sohilparekh89@gmail.com",
-        	"password" => "123456"
-        );
-        $userRole = array(
-        	"userId" => $this->User_model->addUser($userData),
-        	"roleId" => 1
-        );
-        $this->User_model->addUserRoles($userRole);
+    public function index() {
+        redirect(site_url('auth/login'));
     }
 }
