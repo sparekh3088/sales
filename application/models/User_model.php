@@ -22,8 +22,8 @@ class User_model extends CI_Model {
         else
             $data['status'] = $this->getStatus($data['status']);
         $this->db->insert(Table::USERS, $data);
-        $user_id = $this->db->insert_id();
-        return $user_id;
+        $userId = $this->db->insert_id();
+        return $userId;
     }
 
     function addUserRoles($data) {
@@ -34,7 +34,7 @@ class User_model extends CI_Model {
     function updateUser($data, $userId) {
         if (isset($data['status']))
             $data['status'] = $this->getStatus();
-        $this->db->where("user_id", $userId);
+        $this->db->where("id", $userId);
         $this->db->update(Table::USERS, $data);
         return $this->db->affected_rows();
     }
@@ -65,7 +65,7 @@ class User_model extends CI_Model {
 
     function getUserById($userId) {
         $condition = array(
-            "user_id" => $userId,
+            "id" => $userId,
             "status" => $this->getStatus()
         );
         return $this->getUser($condition);
@@ -88,11 +88,11 @@ class User_model extends CI_Model {
         return (isset($result) && $result && count($result) > 0);
     }
 
-    function getUserRoles($user_id) {
+    function getUserRoles($userId) {
         $condition = array(
-            "user_id" => $user_id
+            "userId" => $userId
         );
-        $result = $this->db->select("role_id")
+        $result = $this->db->select("roleId")
                 ->from(Table::USERROLES)
                 ->where($condition)
                 ->get()
@@ -111,12 +111,12 @@ class User_model extends CI_Model {
         return $statuses[$status];
     }
 
-    function resetPassword($user_id, $newPassword = null) {
+    function resetPassword($userId, $newPassword = null) {
         if (!$newPassword)
             return false;
         $newPassword = sha1($this->config->item('PASSWORD_HASH') . $newPassword);
         $data['password'] = $newPassword;
-        $this->updateUser($data, $user_id);
+        $this->updateUser($data, $userId);
     }
 
 
@@ -124,15 +124,14 @@ class User_model extends CI_Model {
         $insertData = array(
             "email" => $data["email"],
             "name" => $data["name"],
-            "contact" => $data["contact"],
             "password" => $data["password"]
         );
-        $user_id = $this->addUser($insertData);
+        $userId = $this->addUser($insertData);
         $this->addUserRoles(array(
-            "user_id" => $user_id,
-            "role_id" => $data["role_id"]
+            "userId" => $userId,
+            "roleId" => $data["roleId"]
         ));
-        return $user_id;
+        return $userId;
     }
 
 }

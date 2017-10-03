@@ -19,7 +19,7 @@ class Auth extends CI_Controller {
     }
 
     public function login() {
-        if ($this->session->userdata('user_id')) {
+        if ($this->session->userdata('userId')) {
             redirect(site_url() . 'user/dashboard');
         }
         $data = array(
@@ -50,8 +50,8 @@ class Auth extends CI_Controller {
             $userDetails = $uModel->getUserByEmail($email);
             $password = sha1($this->config->item('PASSWORD_HASH') . $password);
             if ($userDetails && ( $userDetails['password'] == $password )) {
-                $this->loginData($userDetails["user_id"]);
-                redirect('user/dashboard');
+                $this->loginData($userDetails["id"]);
+                redirect('admin/dashboard');
             }
             $this->session->set_flashdata("Error", "Incorrect email address or password");
             redirect("auth/login");
@@ -65,9 +65,7 @@ class Auth extends CI_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('email', 'Username', 'trim|required|valid_email|max_length[254]');
         $this->form_validation->set_rules('password', 'Password', 'required');
-        $this->form_validation->set_rules('first_name', 'First Name', 'required');
-        $this->form_validation->set_rules('last_name', 'Last Name', 'required');
-        $this->form_validation->set_rules('phone1', 'Phone Number', 'required');
+        $this->form_validation->set_rules('name', 'Name', 'required');
         if ($this->form_validation->run() == FALSE) {
             //validation error
             return $this->signup();
@@ -78,19 +76,13 @@ class Auth extends CI_Controller {
         $password = $this->input->post('password');
 
         $email = addslashes($email);
-        //$name = addslashes($name);
         $password = addslashes($password);
-        $first_name = $this->input->post('first_name');
-        $last_name = $this->input->post('last_name');
-        $phone = $this->input->post('phone1');
+        $name = $this->input->post('name');
 
         if (!empty($email) && !empty($password)) {
             $data = array(
                 'email' => $email,
-                'first_name' => $first_name,
-                'last_name' => $last_name,
-                'phone1' => $phone,
-                'username' => $email,
+                'name' => $name,
                 'password' => $password
             );
 
@@ -98,39 +90,15 @@ class Auth extends CI_Controller {
             $uModel = new User_model();
             if (!$uModel->existsUserEmail($email)) {
                 $uModel = new User_model();
-                $user_id = $uModel->addUser($data);
+                $userId = $uModel->addUser($data);
 
-                if ($user_id) {
-                    $uModel->addClient($data, $user_id);
-                    $roledata = array('role_id' => 3,
-                        'user_id' => $user_id);
+                if ($userId) {
+                    $roledata = array('roleId' => 3,
+                        'userId' => $userId);
                     $uModel->addUserRoles($roledata);
 
-                    $this->load->model("Merchant_model");
-                    $merchantData = array(
-                        "first_name" => $data["first_name"],
-                        "last_name" => $data["last_name"],
-                        "email" => $data["email"],
-                        "user_id" => $user_id
-                    );
-                    $merchant_account_id = $this->Merchant_model->addMerchant($merchantData);
-                    $merchantUser = array(
-                        "merchant_account_id" => $merchant_account_id,
-                        "user_id" => $user_id,
-                        "is_default" => 1
-                    );
-                    $this->Merchant_model->addUserMerchant($merchantUser);
-
-                    /* $this->load->model('Send_mail_model');
-                      $sMail = new Send_mail_model();
-                      $sMail->sendRegister($email); */
-                    $this->loginData($user_id);
-                    if ($this->session->role_id == 1)
-                        redirect('admin/dashboard');
-                    else if ($this->session->role_id == 2)
-                        redirect('admin/hoster/dashboard');
-                    else
-                        redirect('user/register');
+                    $this->loginData($userId);
+                    redirect('admin/dashboard');
                 }
             }
             $this->session->set_flashdata("Error", "<label>" . $email . " already registered. Kindly login to access your account.</label>");
@@ -152,11 +120,6 @@ class Auth extends CI_Controller {
         $uModel = new User_model();
         $user = $uModel->getUserByEmail($email);
         if ($user) {
-            /* $password = $this->getNewPassword($email);
-              $uModel->resetPassword($user['id'], $password);
-              $this->load->model('Send_mail_model');
-              $sMail = new Send_mail_model();
-              $sMail->sendPasswordReset($email, $password); */
             $this->session->set_flashdata("Success", "Email sent with reset password instructions");
             redirect('auth/login');
         }
@@ -175,16 +138,16 @@ class Auth extends CI_Controller {
         return $password;
     }
 
-    private function loginData($user_id, $additional = null) {
+    private function loginData($userId, $additional = null) {
         $this->load->model('User_model');
         $uModel = new User_model();
-        $userData = $uModel->getUserById($user_id);
-        $userRoles = $uModel->getUserRoles($user_id);
+        $userData = $uModel->getUserById($userId);
+        $userRoles = $uModel->getUserRoles($userId);
         $roles = array_map(function($value) {
-            return $value["role_id"];
+            return $value["roleId"];
         }, $userRoles);
         $this->session->set_userdata($userData);
-        $this->session->set_userdata("full_name", $userData['first_name'] . " " . $userData['last_name']);
+        $this->session->set_userdata("full_name", $userData['name']);
         $this->session->set_userdata("roles", $roles);
         if ($additional)
             $this->session->set_userdata($additional);

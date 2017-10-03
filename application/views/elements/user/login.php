@@ -4,9 +4,9 @@
                 <div class="panel-box">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <div class="login-panel-logo">
+                            <!-- <div class="login-panel-logo">
                                 <img src="<?php echo base_url() ?>assets/images/logo-main.png" class="img-responsive">
-                            </div>
+                            </div> -->
                             <div class="login-form">
                                 <form id="form-login" action="<?php echo base_url() . 'auth/verify' ?>" method="post">
                                     <h2 class="text-center"><b>Login </b>or register</h2>
@@ -35,23 +35,6 @@
                                     </div>
                                     <button type="submit" class="btn btn-login">Login</button>
                                 </form>
-                                <p class="text-center or">Or</p>
-                                <div class="row row-collapse social-login">
-                                    <div class="col-md-6 ">
-                                        <a href="#">
-                                            <div class="fb-box social-box">
-                                                <i class="fa fa-facebook" aria-hidden="true"></i> Log in with Facebook
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-6 ">
-                                        <a href="#">
-                                            <div class="g-box social-box">
-                                                <i class="fa fa-google-plus" aria-hidden="true"></i> Log in with Google+
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
                                 <p class="already-login text-center">Don't have an account? <a href="<?=  base_url('auth/signup')?>">Sign Up
                                         Now</a></p>
                             </div>

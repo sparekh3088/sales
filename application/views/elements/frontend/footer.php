@@ -18,7 +18,7 @@
     </section>
 <?php } else { ?>
     <section class="footer-panel">
-        <div class="container">
+        <!-- <div class="container">
             <div class="row">
                 <div class="col-md-6">
                     <p>&copy; 2017 Forever Guest Book, All rights reserved.</p>
@@ -30,6 +30,6 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
     </section>
     <?php } ?>

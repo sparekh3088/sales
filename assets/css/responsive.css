@@ -1,0 +1,102 @@
+@media screen and (min-width: 1600px) {
+    .blog-content {
+    }
+}
+
+@media screen and (min-width: 2200px) {
+    .blog-content {
+    }
+}
+
+@media screen and (max-width: 1090px) {
+}
+
+@media screen and (max-width: 1090px) {
+    .login-panel {
+        background-color: #74c69a;
+        position: inherit;
+    }
+
+    .login .container {
+        width: 700px;
+    }
+}
+
+@media screen and (max-width: 990px) {
+
+    .top-bar {
+        display: none;
+    }
+
+    .login-panel-logo {
+        text-align: center;
+    }
+
+    .login-panel-logo img {
+        display: inline-block;
+    }
+
+    .login-panel-logo {
+        margin: 20px 0px;
+    }
+
+    .login-form h2 {
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .amount-col {
+        text-align: center;
+    }
+
+    .blog-content {
+        text-align: center;
+    }
+
+    .login-panel {
+        background-color: #74c69a;
+        position: inherit;
+    }
+
+    .login .container {
+        width: auto;
+    }
+
+    footer .social-icon {
+        margin-top: 20px;
+    }
+
+    .footer-panel {
+        position: inherit;
+        text-align: center !important;
+    }
+
+    .footer-panel ul {
+        text-align: center !important;
+        padding-left: 0px;
+    }
+
+    .panel-box {
+        width: 100% !important;
+        max-width: 350px;
+    }
+
+    .login-form-link a, .login-form-link label {
+        font-size: 9px;
+    }
+
+    .top-panle-logo h2 {
+        font-size: 18px;
+        margin: 16px 0px 14px 0;
+    }
+
+    .btn-login {
+        font-size: 15px;
+    }
+
+    .input-group-addon:first-child {
+        border-right: 0;
+        max-width: 132px;
+        font-size: 10px;
+    }
+}
