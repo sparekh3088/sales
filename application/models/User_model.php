@@ -63,6 +63,41 @@ class User_model extends CI_Model {
             return false;
     }
 
+    function getUserByRole($condition, $select = "*") {
+        $user = $this->db->select($select, false)
+                ->from(Table::USERS . ' u ')
+                ->join(Table::USERROLES . ' ur ', 'ur.userId = u.id', 'INNER')
+                ->where($condition)
+                ->get()
+                ->result_array();
+        if ($user && count($user) > 0)
+            return $user;
+        else
+            return false;
+    }
+
+    function getUserByRoleFirm($where, $select = "*") {
+        $condition = array();
+        if( $where['roleId'] ) {
+            $condition['ur.roleId'] = $where['roleId'];
+        }
+
+        if( $where['userId'] ) {
+            $condition['u.id'] = $where['userId'];
+        }
+
+        $user = $this->db->select($select, false)
+                ->from(Table::USERS . ' u ')
+                ->join(Table::USERROLES . ' ur ', 'ur.userId = u.id', 'INNER')
+                ->where($condition)
+                ->get()
+                ->result_array();
+        if ($user && count($user) > 0)
+            return $user;
+        else
+            return false;
+    }
+
     function getUserById($userId) {
         $condition = array(
             "id" => $userId,

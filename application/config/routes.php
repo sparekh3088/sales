@@ -52,3 +52,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
+
+// Firms Route
+$route['firms']['get'] = "firms/get";
+$route['firms/add']['get'] = "firms/add";
+$route['firms/edit/(:any)']['get'] = "firms/add/$1";
+$route['firms/(:any)']['get'] = "firms/getFirmById/$1";
+$route['firms']['post'] = "firms/post";
+$route['firms/(:any)']['put'] = "firms/put/$1";
+$route['firms/delete/(:any)']['get'] = "firms/delete/$1";
+
+// Category Route
+$route['category']['get'] = "category/get";
+$route['category/add']['get'] = "category/add";
+$route['category/edit/(:any)']['get'] = "category/add/$1";
+$route['category/enable/(:any)/(:any)/(:any)']['get'] = "category/enable/$1/$2/$3";
+$route['category/(:any)']['get'] = "category/get/$1";
+$route['category']['post'] = "category/post";
+$route['category/delete/(:any)']['get'] = "category/delete/$1";
+
+// Products Route
+$route['products']['get'] = "products/get";
+$route['products/add']['get'] = "products/add";
+$route['products/edit/(:any)']['get'] = "products/add/$1";
+$route['products/(:any)']['get'] = "products/get/$1";
+$route['products']['post'] = "products/post";
+$route['products/delete/(:any)']['get'] = "products/delete/$1";
+
+// Users Route
+$route['user']['get'] = "user/get";
+$route['user/add']['get'] = "user/add";
+$route['user/edit/(:any)']['get'] = "user/add/$1";
+$route['user/(:any)']['get'] = "user/get/$1";
+$route['user']['post'] = "user/post";
+$route['user/delete/(:any)']['get'] = "user/delete/$1";

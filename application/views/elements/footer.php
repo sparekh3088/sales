@@ -1,5 +1,5 @@
-<footer id="login-footer">
-    <strong>Copyright © <?= date('YY') ?> Events.com</strong>
-    <div class="spacer-5"></div>
-    <small>Lorem ipsum dolor sit amet, islum consectetur adipiscing elit. All rights reserved.</small>
+<footer id="login-footer" class="text-center">
+	<div class="spacer-20"></div>
+    <strong>Copyright © <?= date('Y') ?> Sales</strong>
+    <div class="spacer-20"></div>
 </footer>

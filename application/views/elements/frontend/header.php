@@ -1,27 +1,19 @@
-<?php if ($this->session->userdata('user_id') && !isset($register_hf)) { ?>
-<div class="top-bar">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 text-right">
-                    <ul class="sing">
-                        <li><a href="<?=  base_url('auth/logout')?>"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
-                    </ul>
-            </div>
-        </div>
-    </div>
-</div>
+<?php if ($this->session->userdata('id')) { ?>
 <header>
-    <!-- <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-
-                    <a class="navbar-brand" href="#"><img src="<?php echo base_url() ?>assets/images/logo-main.png" width="116" height="89"
-                                                          alt="ARTzbites" title="ARTzbites"></a>
+                <div class="col-md-6 col-sm-6">
+                    <a class="navbar-brand" href="#">Sales</a>
+                </div>
+                <div class="col-md-6 col-sm-6 text-right">
+                    <ul class="sing list-unstyled list-inline">
+                        <li><a href="<?=  base_url('profile')?>"><i class="fa fa-user" aria-hidden="true"></i>  <?= $this->session->userdata('full_name') ?></a></li>
+                        <li><a href="<?=  base_url('auth/logout')?>"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-        </div>
-    </nav> -->
+    </nav>
 </header>
 <?php }?>

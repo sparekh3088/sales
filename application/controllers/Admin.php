@@ -11,7 +11,7 @@
  *
  * @author Sohil
  */
-class Admin extends CI_Controller {
+class Admin extends SL_Controller {
 
 	//put your code here
     public function __construct() {
@@ -19,8 +19,14 @@ class Admin extends CI_Controller {
     }
 
     public function dashboard() {
-    	$data = array();
-    	$this->template->load('frontend', 'elements/user/dashboard', $data);
+    	$data = array(
+    		'pageTitle' => "Dashboard",
+            "pageSlug" => "/",
+            "breadCrumb" => array(
+                'Home' => '/'
+            )
+    	);
+    	$this->template->load('eventHome', 'elements/user/dashboard', $data);
     }
 
 }

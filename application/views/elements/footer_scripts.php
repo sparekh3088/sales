@@ -26,4 +26,5 @@
 
 <script src="<?php echo base_url() ?>assets/js/plugins/jquery.pwstrength.min.js"></script>
 <script src="<?php echo base_url() ?>assets/js/plugins/main.js"></script>
+<script src="<?php echo base_url() ?>assets/ckeditor/ckeditor.js"></script>
 <script src="<?php echo base_url() ?>assets/js/custom.js"></script>

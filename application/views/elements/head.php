@@ -1,10 +1,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Events <?= ($pageTitle)?" - " . $pageTitle:""?></title>
+    <title>Sales <?= ($pageTitle)?" - " . $pageTitle:""?></title>
     <!-- // IOS webapp icons // -->
     
-    <meta name="apple-mobile-web-app-title" content="Events">
+    <meta name="apple-mobile-web-app-title" content="Sales">
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="<?php echo base_url() ?>assets/images/mobile/apple-touch-icon-152x152.png" />
 	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url() ?>assets/images/mobile/apple-touch-icon-144x144.png">
     <link rel="apple-touch-icon-precomposed" sizes="120x120" href="<?php echo base_url() ?>assets/images/mobile/apple-touch-icon-120x120.png" />
